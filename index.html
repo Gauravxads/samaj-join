@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#ffffff">
+<title>Samaj Directory – Join</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #E8730C;          /* saffron */
+    --accent-dark: #C55F06;
+    --maroon: #7A1F2B;
+    --accent-soft: #FFF3E8;
+    --ink: #222222;
+    --ink-2: #6A6A6A;
+    --line: #DDDDDD;
+    --line-strong: #B0B0B0;
+    --bg: #FFFFFF;
+    --bg-soft: #F7F7F7;
+    --error: #C13515;
+    --ok: #0A7A42;
+    --radius: 12px;
+    --shadow: 0 6px 20px rgba(0,0,0,.08);
+    --font: "Plus Jakarta Sans", "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--font); font-size: 16px; line-height: 1.45;
+    overflow-x: hidden;
+  }
+  html[lang="hi"] body, html[lang="mwr"] body { font-family: "Noto Sans Devanagari", var(--font); }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 0 20px 120px; }
+
+  /* Header */
+  header.top {
+    position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.96);
+    border-bottom: 1px solid #EBEBEB; backdrop-filter: saturate(180%) blur(8px);
+  }
+  .top-inner { max-width: 520px; margin: 0 auto; padding: 10px 20px 12px; }
+  .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 17px; color: var(--maroon); min-width: 0; }
+  .brand-mark { width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--maroon)); flex: none; display: grid; place-items: center; color: #fff; font-size: 15px; }
+  .brand span { font-size: 15px; line-height: 1.15; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .lang { display: flex; background: var(--bg-soft); border: 1px solid #EBEBEB; border-radius: 999px; padding: 3px; flex: none; }
+  .lang button {
+    white-space: nowrap; border: 0; background: transparent; font: inherit; font-size: 13px; font-weight: 600;
+    padding: 7px 10px; border-radius: 999px; color: var(--ink-2); cursor: pointer; min-height: 34px;
+    font-family: "Noto Sans Devanagari", var(--font);
+  }
+  .lang button[aria-pressed="true"] { background: #fff; color: var(--ink); box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+
+  .progress { margin-top: 10px; display: flex; gap: 6px; }
+  .progress i { flex: 1; height: 4px; border-radius: 4px; background: #EBEBEB; transition: background .25s; }
+  .progress i.on { background: var(--accent); }
+  .step-label { margin-top: 6px; font-size: 12px; color: var(--ink-2); font-weight: 600; letter-spacing: .02em; }
+
+  h1 { font-size: 26px; line-height: 1.2; margin: 22px 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--ink-2); margin: 0 0 18px; font-size: 15px; }
+
+  /* Fields */
+  .field { margin-bottom: 18px; }
+  label.lbl, .lbl { display: block; font-weight: 600; font-size: 15px; margin-bottom: 7px; }
+  .opt { font-weight: 400; color: var(--ink-2); font-size: 13px; }
+  .req { color: var(--accent-dark); }
+  input[type=text], input[type=tel], select {
+    width: 100%; font: inherit; font-size: 17px; color: var(--ink);
+    background: #fff; border: 1px solid var(--line-strong); border-radius: var(--radius);
+    padding: 14px 14px; min-height: 52px; outline: none; appearance: none; -webkit-appearance: none;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px;
+  }
+  input:focus, select:focus { border-color: var(--ink); box-shadow: 0 0 0 2px rgba(34,34,34,.15); }
+  .invalid input, .invalid select { border-color: var(--error); background: #FFF8F6; }
+  .err { color: var(--error); font-size: 13px; margin-top: 6px; display: none; font-weight: 500; }
+  .invalid .err { display: block; }
+  .hint { color: var(--ink-2); font-size: 13px; margin-top: 6px; }
+  .prefix { position: relative; }
+  .prefix > span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 17px; color: var(--ink-2); pointer-events: none; }
+  .prefix input { padding-left: 50px; }
+  .row2 { display: grid; grid-template-columns: 1fr; gap: 0 12px; }
+
+  /* Chips (radio pills) */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips label { position: relative; }
+  .chips input { position: absolute; opacity: 0; inset: 0; margin: 0; }
+  .chips span {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 56px;
+    padding: 9px 16px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 15px; font-weight: 500;
+    background: #fff; cursor: pointer; user-select: none; transition: all .12s;
+  }
+  .chips input:checked + span { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .chips input:focus-visible + span { box-shadow: 0 0 0 3px rgba(232,115,12,.4); }
+  .chips.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .chips.grid4 span { width: 100%; min-width: 0; padding: 9px 4px; }
+  .chips.grid4 label.wide { grid-column: span 4; }
+
+  /* Checkbox cards */
+  .check {
+    display: flex; gap: 12px; align-items: flex-start; padding: 14px; border: 1px solid var(--line);
+    border-radius: var(--radius); cursor: pointer; background: #fff;
+  }
+  .check input { width: 24px; height: 24px; flex: none; margin: 1px 0 0; accent-color: var(--accent-dark); }
+  .check .t { font-size: 14.5px; line-height: 1.45; }
+  .check.strong { border-color: var(--line-strong); }
+  .invalid .check { border-color: var(--error); background: #FFF8F6; }
+  .inline-check { display: flex; gap: 10px; align-items: center; margin-top: 10px; font-size: 15px; cursor: pointer; min-height: 40px; }
+  .inline-check input { width: 22px; height: 22px; accent-color: var(--accent-dark); margin: 0; }
+
+  .card { border: 1px solid #EBEBEB; border-radius: 16px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .pinstatus { font-size: 13px; margin-top: 6px; color: var(--ink-2); min-height: 18px; }
+  .pinstatus.ok { color: var(--ok); }
+
+  /* Footer actions */
+  .actions {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; background: #fff; border-top: 1px solid #EBEBEB;
+    padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+  }
+  .actions-inner { max-width: 520px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
+  .btn {
+    font: inherit; font-weight: 700; font-size: 17px; border-radius: 999px; min-height: 52px; padding: 0 22px;
+    border: 0; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-primary { flex: 1; color: #fff; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 60%, var(--maroon) 100%); box-shadow: 0 4px 14px rgba(197,95,6,.3); }
+  .btn-primary:disabled { opacity: .65; cursor: wait; }
+  .btn-ghost { background: transparent; color: var(--ink); text-decoration: underline; padding: 0 10px; }
+  .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; display: none; }
+  .busy .spinner { display: inline-block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .banner { border-radius: var(--radius); padding: 12px 14px; font-size: 14.5px; margin: 0 0 16px; display: none; }
+  .banner.show { display: block; }
+  .banner.error { background: #FFF1EE; color: #8A2A12; border: 1px solid #F5C2B5; }
+
+  .privacy { font-size: 12.5px; color: var(--ink-2); margin-top: 6px; }
+  .step { display: none; }
+  .step.active { display: block; animation: fade .2s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+  /* Success */
+  .success { text-align: center; padding-top: 40px; }
+  .tick { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 18px; background: var(--accent-soft); display: grid; place-items: center; }
+  .tick svg { width: 44px; height: 44px; }
+  .success h1 { margin-top: 0; }
+  .success .btn { width: 100%; margin-top: 12px; }
+  .btn-outline { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  @media (min-width: 420px) { .row2.cols { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<!--
+  Samaj Directory – event QR registration form.
+  Single static file. No analytics, no trackers, no cookies.
+  Only the chosen language is saved in localStorage (key: samaj_lang). Form data is never stored on the device.
+-->
+<header class="top">
+  <div class="top-inner">
+    <div class="brand-row">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">स</div><span id="brandName">Samaj Directory</span></div>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en">English</button>
+        <button type="button" data-lang="hi">हिन्दी</button>
+        <button type="button" data-lang="mwr">मारवाड़ी</button>
+      </div>
+    </div>
+    <div id="progressBox">
+      <div class="progress" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="step-label" id="stepLabel"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <form id="form" novalidate autocomplete="on">
+    <!-- honeypot: real people never see/fill this -->
+    <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <!-- STEP 1: Personal -->
+    <section class="step active" data-step="1">
+      <h1 data-i18n="s1_title"></h1>
+      <p class="sub" data-i18n="s1_sub"></p>
+
+      <div class="field" data-f="full_name">
+        <label class="lbl" for="full_name"><span data-i18n="full_name"></span> <span class="req">*</span></label>
+        <input type="text" id="full_name" name="full_name" autocomplete="name" maxlength="80" data-ph="ph_full_name">
+        <div class="err" data-i18n="e_required"></div>
+      </div>
+      <div class="field" data-f="father_name">
+        <label class="lbl" for="father_name"><span data-i18n="father_name"></span> <span class="req">*</span></label>
+        <input type="text" id="father_name" name="father_name" maxlength="80" data-ph="ph_father_name">
+        <div class="err" data-i18n="e_required"></div>
+      </div>
+      <div class="field" data-f="mother_name">
+        <label class="lbl" for="mother_name"><span data-i18n="mother_name"></span> <span class="opt" data-i18n="optional"></span></label>
+        <input type="text" id="mother_name" name="mother_name" maxlength="80" data-ph="ph_mother_name">
+      </div>
+      <div class="field" data-f="gender">
+        <span class="lbl"><span data-i18n="gender"></span> <span class="opt" data-i18n="optional"></span></span>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="gender" value="Male"><span data-i18n="g_male"></span></label>
+          <label><input type="radio" name="gender" value="Female"><span data-i18n="g_female"></span></label>
+          <label><input type="radio" name="gender" value="Other"><span data-i18n="g_other"></span></label>
+          <label><input type="radio" name="gender" value="Prefer not to say"><span data-i18n="g_na"></span></label>
+        </div>
+      </div>
+      <div class="field" data-f="mobile">
+        <label class="lbl" for="mobile"><span data-i18n="mobile"></span> <span class="req">*</span></label>
+        <div class="prefix"><span>+91</span>
+          <input type="tel" id="mobile" name="mobile" inputmode="numeric" autocomplete="tel-national" data-ph="ph_mobile">
+        </div>
+        <div class="err" data-i18n="e_mobile"></div>
+        <label class="inline-check"><input type="checkbox" id="whatsapp_same" name="whatsapp_same" checked> <span data-i18n="whatsapp_same"></span></label>
+      </div>
+      <div class="field" data-f="whatsapp" id="waField" hidden>
+        <label class="lbl" for="whatsapp"><span data-i18n="whatsapp"></span> <span class="req">*</span></label>
+        <div class="prefix"><span>+91</span>
+          <input type="tel" id="whatsapp" name="whatsapp" inputmode="numeric" data-ph="ph_mobile">
+        </div>
+        <div class="err" data-i18n="e_mobile"></div>
+      </div>
+    </section>
+
+    <!-- STEP 2: Location & roots -->
+    <section class="step" data-step="2">
+      <h1 data-i18n="s2_title"></h1>
+      <p class="sub" data-i18n="s2_sub"></p>
+
+      <div class="field" data-f="village">
+        <label class="lbl" for="village"><span data-i18n="village"></span> <span class="req">*</span></label>
+        <input type="text" id="village" name="village" maxlength="80" data-ph="ph_village">
+        <div class="err" data-i18n="e_required"></div>
+      </div>
+      <div class="field" data-f="gotra">
+        <label class="lbl" for="gotra"><span data-i18n="gotra"></span> <span class="req">*</span></label>
+        <input type="text" id="gotra" name="gotra" maxlength="60" data-ph="ph_gotra">
+        <div class="err" data-i18n="e_required"></div>
+      </div>
+      <div class="card">
+        <div class="field" data-f="pincode">
+          <label class="lbl" for="pincode"><span data-i18n="pincode"></span> <span class="req">*</span></label>
+          <input type="tel" id="pincode" name="pincode" inputmode="numeric" autocomplete="postal-code" data-ph="ph_pincode">
+          <div class="pinstatus" id="pinStatus" aria-live="polite"></div>
+          <div class="err" data-i18n="e_pincode"></div>
+        </div>
+        <div class="field" data-f="city">
+          <label class="lbl" for="city"><span data-i18n="city"></span> <span class="req">*</span></label>
+          <input type="text" id="city" name="city" autocomplete="address-level2" maxlength="60" data-ph="ph_city">
+          <div class="err" data-i18n="e_required"></div>
+        </div>
+        <div class="field" data-f="state" style="margin-bottom:4px">
+          <label class="lbl" for="state"><span data-i18n="state"></span> <span class="req">*</span></label>
+          <select id="state" name="state" autocomplete="address-level1"></select>
+          <div class="err" data-i18n="e_select"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: Work & Blood -->
+    <section class="step" data-step="3">
+      <h1 data-i18n="s3_title"></h1>
+      <p class="sub" data-i18n="s3_sub"></p>
+
+      <div class="field" data-f="occupation_category">
+        <label class="lbl" for="occupation_category"><span data-i18n="occupation_category"></span> <span class="req">*</span></label>
+        <select id="occupation_category" name="occupation_category"></select>
+        <div class="err" data-i18n="e_select"></div>
+      </div>
+      <div class="field" data-f="occupation_detail">
+        <label class="lbl" for="occupation_detail"><span data-i18n="occupation_detail"></span> <span class="opt" data-i18n="optional"></span></label>
+        <input type="text" id="occupation_detail" name="occupation_detail" maxlength="120" data-ph="ph_occupation_detail">
+      </div>
+      <div class="field" data-f="blood_group">
+        <span class="lbl"><span data-i18n="blood_group"></span> <span class="req">*</span></span>
+        <div class="chips grid4" role="radiogroup">
+          <label><input type="radio" name="blood_group" value="A+"><span>A+</span></label>
+          <label><input type="radio" name="blood_group" value="A-"><span>A−</span></label>
+          <label><input type="radio" name="blood_group" value="B+"><span>B+</span></label>
+          <label><input type="radio" name="blood_group" value="B-"><span>B−</span></label>
+          <label><input type="radio" name="blood_group" value="AB+"><span>AB+</span></label>
+          <label><input type="radio" name="blood_group" value="AB-"><span>AB−</span></label>
+          <label><input type="radio" name="blood_group" value="O+"><span>O+</span></label>
+          <label><input type="radio" name="blood_group" value="O-"><span>O−</span></label>
+          <label class="wide"><input type="radio" name="blood_group" value="Don't know"><span data-i18n="bg_unknown"></span></label>
+        </div>
+        <div class="err" data-i18n="e_select"></div>
+      </div>
+      <div class="field" data-f="blood_donor_willing">
+        <span class="lbl"><span data-i18n="blood_donor_willing"></span> <span class="req">*</span></span>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="blood_donor_willing" value="Yes"><span data-i18n="yes"></span></label>
+          <label><input type="radio" name="blood_donor_willing" value="No"><span data-i18n="no"></span></label>
+        </div>
+        <div class="err" data-i18n="e_select"></div>
+      </div>
+
+      <div class="field" data-f="consent_directory">
+        <label class="check strong"><input type="checkbox" id="consent_directory" name="consent_directory"><span class="t" data-i18n="consent_directory"></span></label>
+        <div class="err" data-i18n="e_consent"></div>
+      </div>
+      <div class="field" data-f="consent_show_mobile">
+        <label class="check"><input type="checkbox" id="consent_show_mobile" name="consent_show_mobile" checked><span class="t" data-i18n="consent_show_mobile"></span></label>
+      </div>
+      <p class="privacy" data-i18n="privacy"></p>
+    </section>
+
+    <div class="banner error" id="netError" role="alert"></div>
+  </form>
+
+  <!-- SUCCESS -->
+  <section class="success" id="success" hidden>
+    <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="#C55F06" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h1 data-i18n="ok_title"></h1>
+    <p class="sub" data-i18n="ok_sub"></p>
+    <p class="sub" data-i18n="ok_family_hint"></p>
+    <button type="button" class="btn btn-primary" id="addFamily" style="width:100%"><span data-i18n="ok_add_family"></span></button>
+    <button type="button" class="btn btn-outline" id="doneBtn"><span data-i18n="ok_done"></span></button>
+  </section>
+</main>
+
+<div class="actions" id="actions">
+  <div class="actions-inner">
+    <button type="button" class="btn btn-ghost" id="backBtn" hidden><span data-i18n="back"></span></button>
+    <button type="button" class="btn btn-primary" id="nextBtn"><span class="spinner"></span><span id="nextText"></span></button>
+  </div>
+</div>
+
+<script>
+/* ======================================================================
+   CONFIG — the only thing you must edit.
+   Paste your Google Apps Script "Web app" URL here (ends with /exec).
+   ====================================================================== */
+const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxIoIVQulnOSfH9i13JeW-yLxUzJ1M4-UWGXd7ZL4u_At8pmTILYV2n7pqqSFVypU9r3g/exec";
+const COMMUNITY_NAME = "Samaj Directory";     // shown in header; change to your samaj's name
+const SOURCE = "event_qr_2026_11_15";
+
+/* ======================================================================
+   TRANSLATIONS
+   NOTE: Marwari (mwr) strings are a best-effort draft written in Devanagari.
+   They MUST be reviewed by a native Marwari speaker before the event.
+   ====================================================================== */
+const I18N = {
+  en: {
+    steps: ["Personal", "Location", "Work & Blood"],
+    step_of: (n) => `Step ${n} of 3`,
+    s1_title: "Join the Samaj directory",
+    s1_sub: "Takes 1 minute. Fill in your own details first — you can add family members after.",
+    s2_title: "Your roots & where you live",
+    s2_sub: "Helps members find you by village and city.",
+    s3_title: "Work & blood group",
+    s3_sub: "So members can find professionals — and blood donors in an emergency.",
+    full_name: "Full name", ph_full_name: "e.g. Ramesh Kumar Rajpurohit",
+    father_name: "Father's name", ph_father_name: "e.g. Mohanlal Rajpurohit",
+    mother_name: "Mother's name", ph_mother_name: "e.g. Kamla Devi",
+    gender: "Gender", g_male: "Male", g_female: "Female", g_other: "Other", g_na: "Prefer not to say",
+    mobile: "Mobile number", ph_mobile: "10-digit number",
+    whatsapp_same: "Same number is on WhatsApp",
+    whatsapp: "WhatsApp number",
+    village: "Native village", ph_village: "e.g. Sanderao, Pali",
+    gotra: "Gotra", ph_gotra: "e.g. Udesh",
+    pincode: "Current pincode", ph_pincode: "6-digit pincode",
+    city: "City", ph_city: "e.g. Mumbai",
+    state: "State", state_pick: "Select state",
+    occupation_category: "What do you do?", occ_pick: "Select occupation",
+    occupation_detail: "More about your work", ph_occupation_detail: "e.g. Criminal lawyer, Jaipur High Court",
+    blood_group: "Blood group", bg_unknown: "Don't know",
+    blood_donor_willing: "Can we contact you for blood donation in an emergency?",
+    yes: "Yes", no: "No",
+    consent_directory: "I agree that my details are stored and shown only to verified members of the Samaj app. I can ask for my details to be changed or removed anytime.",
+    consent_show_mobile: "Members can see my mobile number.",
+    privacy: "🔒 We never sell or share your details outside the Samaj. Used only for the community directory.",
+    optional: "(optional)",
+    optional_short: "optional",
+    e_required: "Please fill this in.",
+    e_mobile: "Enter a valid 10-digit mobile number (starts with 6, 7, 8 or 9).",
+    e_pincode: "Enter a valid 6-digit pincode.",
+    e_select: "Please choose one.",
+    e_consent: "Please tick this box to join the directory.",
+    pin_looking: "Finding your city…",
+    pin_found: (c, s) => `✓ ${c}, ${s}`,
+    pin_fail: "Couldn't find it automatically — please type city and state.",
+    next: "Next", back: "Back", submit: "Submit", sending: "Sending…", retry: "Retry",
+    net_error: "Couldn't send — the network seems weak. Your answers are safe on this screen. Tap Retry.",
+    server_error: "Something went wrong saving your details. Please tap Retry, or ask a volunteer.",
+    not_configured: "This form is not connected yet (SHEET_ENDPOINT missing). Please tell the organiser.",
+    ok_title: "Thank you! You're registered 🙏",
+    ok_sub: "We'll notify you on WhatsApp when the Samaj app launches.",
+    ok_family_hint: "Registering family? Village, gotra and address will be filled in for you.",
+    ok_add_family: "Add a family member",
+    ok_done: "Done",
+    occ: {
+      "Business/Trader": "Business / Trader", "Doctor": "Doctor", "Lawyer/Advocate": "Lawyer / Advocate",
+      "CA/Finance": "CA / Finance", "Engineer": "Engineer", "Software/IT/Web Developer": "Software / IT / Web Developer",
+      "Teacher/Professor": "Teacher / Professor", "Government Service": "Government Service", "Police/Defence": "Police / Defence",
+      "Student": "Student", "Farmer/Agriculture": "Farmer / Agriculture", "Hotel/Restaurant": "Hotel / Restaurant",
+      "Construction/Contractor": "Construction / Contractor", "Real Estate": "Real Estate", "Transport": "Transport",
+      "Retail Shop": "Retail Shop", "Homemaker": "Homemaker", "Retired": "Retired", "Priest/Pandit": "Priest / Pandit", "Other": "Other"
+    }
+  },
+  hi: {
+    steps: ["व्यक्तिगत", "स्थान", "काम और रक्त"],
+    step_of: (n) => `चरण ${n} / 3`,
+    s1_title: "समाज डायरेक्टरी से जुड़ें",
+    s1_sub: "सिर्फ़ 1 मिनट लगेगा। पहले अपनी जानकारी भरें — बाद में परिवार के सदस्य जोड़ सकते हैं।",
+    s2_title: "आपका मूल गाँव और निवास",
+    s2_sub: "ताकि सदस्य आपको गाँव और शहर से ढूँढ सकें।",
+    s3_title: "काम और ब्लड ग्रुप",
+    s3_sub: "ताकि सदस्य प्रोफ़ेशनल्स ढूँढ सकें — और आपात स्थिति में रक्तदाता भी।",
+    full_name: "पूरा नाम", ph_full_name: "जैसे: रमेश कुमार राजपुरोहित",
+    father_name: "पिता का नाम", ph_father_name: "जैसे: मोहनलाल राजपुरोहित",
+    mother_name: "माता का नाम", ph_mother_name: "जैसे: कमला देवी",
+    gender: "लिंग", g_male: "पुरुष", g_female: "महिला", g_other: "अन्य", g_na: "नहीं बताना चाहते",
+    mobile: "मोबाइल नंबर", ph_mobile: "10 अंकों का नंबर",
+    whatsapp_same: "इसी नंबर पर WhatsApp है",
+    whatsapp: "WhatsApp नंबर",
+    village: "मूल गाँव", ph_village: "जैसे: सांडेराव, पाली",
+    gotra: "गोत्र", ph_gotra: "जैसे: उदेश",
+    pincode: "वर्तमान पिनकोड", ph_pincode: "6 अंकों का पिनकोड",
+    city: "शहर", ph_city: "जैसे: मुंबई",
+    state: "राज्य", state_pick: "राज्य चुनें",
+    occupation_category: "आप क्या काम करते हैं?", occ_pick: "व्यवसाय चुनें",
+    occupation_detail: "अपने काम के बारे में और बताएं", ph_occupation_detail: "जैसे: क्रिमिनल वकील, जयपुर हाई कोर्ट",
+    blood_group: "ब्लड ग्रुप", bg_unknown: "पता नहीं",
+    blood_donor_willing: "क्या आपात स्थिति में रक्तदान के लिए हम आपसे संपर्क कर सकते हैं?",
+    yes: "हाँ", no: "नहीं",
+    consent_directory: "मैं सहमत हूँ कि मेरी जानकारी सुरक्षित रखी जाए और केवल समाज ऐप के सत्यापित (verified) सदस्यों को दिखाई जाए। मैं कभी भी अपनी जानकारी बदलवा या हटवा सकता/सकती हूँ।",
+    consent_show_mobile: "सदस्य मेरा मोबाइल नंबर देख सकते हैं।",
+    privacy: "🔒 आपकी जानकारी समाज के बाहर कभी बेची या साझा नहीं की जाएगी। केवल समाज डायरेक्टरी के लिए।",
+    optional: "(वैकल्पिक)",
+    optional_short: "वैकल्पिक",
+    e_required: "कृपया यह भरें।",
+    e_mobile: "सही 10 अंकों का मोबाइल नंबर डालें (6, 7, 8 या 9 से शुरू)।",
+    e_pincode: "सही 6 अंकों का पिनकोड डालें।",
+    e_select: "कृपया एक चुनें।",
+    e_consent: "डायरेक्टरी से जुड़ने के लिए कृपया इस पर टिक करें।",
+    pin_looking: "आपका शहर ढूँढ रहे हैं…",
+    pin_found: (c, s) => `✓ ${c}, ${s}`,
+    pin_fail: "अपने-आप नहीं मिला — कृपया शहर और राज्य खुद भरें।",
+    next: "आगे", back: "पीछे", submit: "जमा करें", sending: "भेज रहे हैं…", retry: "फिर से भेजें",
+    net_error: "भेजा नहीं जा सका — नेटवर्क कमज़ोर है। आपकी जानकारी इसी स्क्रीन पर सुरक्षित है। ‘फिर से भेजें’ दबाएँ।",
+    server_error: "जानकारी सेव करने में दिक्कत हुई। कृपया ‘फिर से भेजें’ दबाएँ या किसी स्वयंसेवक से मदद लें।",
+    not_configured: "यह फ़ॉर्म अभी जुड़ा नहीं है (SHEET_ENDPOINT नहीं है)। कृपया आयोजक को बताएं।",
+    ok_title: "धन्यवाद! आपका पंजीकरण हो गया 🙏",
+    ok_sub: "समाज ऐप लॉन्च होते ही हम आपको WhatsApp पर सूचना देंगे।",
+    ok_family_hint: "परिवार का पंजीकरण? गाँव, गोत्र और पता अपने-आप भर जाएगा।",
+    ok_add_family: "परिवार का सदस्य जोड़ें",
+    ok_done: "हो गया",
+    occ: {
+      "Business/Trader": "व्यापार / व्यापारी", "Doctor": "डॉक्टर", "Lawyer/Advocate": "वकील / एडवोकेट",
+      "CA/Finance": "CA / फ़ाइनेंस", "Engineer": "इंजीनियर", "Software/IT/Web Developer": "सॉफ़्टवेयर / IT / वेब डेवलपर",
+      "Teacher/Professor": "शिक्षक / प्रोफ़ेसर", "Government Service": "सरकारी नौकरी", "Police/Defence": "पुलिस / सेना",
+      "Student": "विद्यार्थी", "Farmer/Agriculture": "किसान / खेती", "Hotel/Restaurant": "होटल / रेस्टोरेंट",
+      "Construction/Contractor": "निर्माण / ठेकेदार", "Real Estate": "रियल एस्टेट", "Transport": "ट्रांसपोर्ट",
+      "Retail Shop": "दुकान (रिटेल)", "Homemaker": "गृहिणी", "Retired": "सेवानिवृत्त", "Priest/Pandit": "पुजारी / पंडित", "Other": "अन्य"
+    }
+  },
+  /* Marwari — DRAFT, needs native-speaker review */
+  mwr: {
+    steps: ["आपरी जाणकारी", "ठिकाणो", "काम अर लोही"],
+    step_of: (n) => `पगथियो ${n} / 3`,
+    s1_title: "समाज डायरेक्टरी सूं जुड़ो",
+    s1_sub: "फगत 1 मिनट लागसी। पैली आपरी जाणकारी भरो — पछै परिवार रा सदस्य जोड़ सको।",
+    s2_title: "आपरो गाँव अर रैवास",
+    s2_sub: "जिणसूं सदस्य आपनै गाँव अर सहर सूं ढूँढ सकै।",
+    s3_title: "काम अर ब्लड ग्रुप",
+    s3_sub: "जिणसूं सदस्य काम रा जाणकार ढूँढ सकै — अर आफत में लोही देवणिया भी।",
+    full_name: "पूरो नाम", ph_full_name: "जियां: रमेश कुमार राजपुरोहित",
+    father_name: "बापूजी रो नाम", ph_father_name: "जियां: मोहनलाल राजपुरोहित",
+    mother_name: "माँ रो नाम", ph_mother_name: "जियां: कमला देवी",
+    gender: "लिंग", g_male: "आदमी", g_female: "लुगाई", g_other: "दूजो", g_na: "नीं बतावणो",
+    mobile: "मोबाइल नंबर", ph_mobile: "10 अंकां रो नंबर",
+    whatsapp_same: "इणी नंबर माथै WhatsApp है",
+    whatsapp: "WhatsApp नंबर",
+    village: "मूळ गाँव", ph_village: "जियां: सांडेराव, पाली",
+    gotra: "गोत्र", ph_gotra: "जियां: उदेश",
+    pincode: "अबार रो पिनकोड", ph_pincode: "6 अंकां रो पिनकोड",
+    city: "सहर", ph_city: "जियां: मुंबई",
+    state: "राज्य", state_pick: "राज्य चुणो",
+    occupation_category: "आप कांई काम करो?", occ_pick: "काम चुणो",
+    occupation_detail: "आपरै काम बाबत और बतावो", ph_occupation_detail: "जियां: क्रिमिनल वकील, जयपुर हाई कोर्ट",
+    blood_group: "ब्लड ग्रुप", bg_unknown: "ठा कोनी",
+    blood_donor_willing: "आफत में लोही (रक्तदान) सारू आपसूं संपर्क कर सकां कांई?",
+    yes: "हाँ", no: "ना",
+    consent_directory: "म्हैं राजी हूँ कै म्हारी जाणकारी राखी जावै अर फगत समाज ऐप रा पक्का (verified) सदस्यां नै दिखाई जावै। म्हैं कदैई भी आपरी जाणकारी बदळवा या हटवा सकूँ।",
+    consent_show_mobile: "सदस्य म्हारो मोबाइल नंबर देख सकै।",
+    privacy: "🔒 आपरी जाणकारी समाज रै बारै कदैई नीं बेचीजसी, नीं दीजसी। फगत समाज डायरेक्टरी सारू।",
+    optional: "(जरूरी कोनी)",
+    optional_short: "जरूरी कोनी",
+    e_required: "किरपा कर इणनै भरो।",
+    e_mobile: "सही 10 अंकां रो मोबाइल नंबर भरो (6, 7, 8 या 9 सूं सरू)।",
+    e_pincode: "सही 6 अंकां रो पिनकोड भरो।",
+    e_select: "किरपा कर एक चुणो।",
+    e_consent: "डायरेक्टरी सूं जुड़ण सारू इण माथै टिक करो।",
+    pin_looking: "आपरो सहर ढूँढां हां…",
+    pin_found: (c, s) => `✓ ${c}, ${s}`,
+    pin_fail: "आपै-आप नीं मिल्यो — सहर अर राज्य खुद भरो।",
+    next: "आगै", back: "लारै", submit: "भेजो", sending: "भेज रिया हां…", retry: "पाछो भेजो",
+    net_error: "नीं भेजीज्यो — नेटवर्क कमजोर है। आपरी जाणकारी इणी स्क्रीन माथै सुरक्षित है। ‘पाछो भेजो’ दबावो।",
+    server_error: "जाणकारी सेव करण में दिक्कत आई। ‘पाछो भेजो’ दबावो या किणी स्वयंसेवक सूं मदद लो।",
+    not_configured: "ओ फ़ॉर्म हाल जुड्यो कोनी (SHEET_ENDPOINT कोनी)। आयोजक नै बतावो।",
+    ok_title: "घणो धन्यवाद! आपरो नाम लिखीजग्यो 🙏",
+    ok_sub: "समाज ऐप सरू होतां ई म्हैं आपनै WhatsApp माथै बतासां।",
+    ok_family_hint: "परिवार रो नाम लिखावणो है? गाँव, गोत्र अर पतो आपै-आप भरीज जासी।",
+    ok_add_family: "परिवार रो सदस्य जोड़ो",
+    ok_done: "हो ग्यो",
+    occ: {
+      "Business/Trader": "धंधो / व्यापारी", "Doctor": "डॉक्टर", "Lawyer/Advocate": "वकील / एडवोकेट",
+      "CA/Finance": "CA / फ़ाइनेंस", "Engineer": "इंजीनियर", "Software/IT/Web Developer": "सॉफ़्टवेयर / IT / वेब डेवलपर",
+      "Teacher/Professor": "मास्टर / प्रोफ़ेसर", "Government Service": "सरकारी नौकरी", "Police/Defence": "पुलिस / फौज",
+      "Student": "पढ़ाई (विद्यार्थी)", "Farmer/Agriculture": "करसो / खेती", "Hotel/Restaurant": "होटल / रेस्टोरेंट",
+      "Construction/Contractor": "चिणाई / ठेकेदार", "Real Estate": "रियल एस्टेट", "Transport": "ट्रांसपोर्ट",
+      "Retail Shop": "दुकान", "Homemaker": "घर संभाळणो", "Retired": "रिटायर", "Priest/Pandit": "पुजारी / पंडित", "Other": "दूजो"
+    }
+  }
+};
+
+/* Stored values are always the canonical English values below (the app will import these). */
+const OCCUPATIONS = ["Business/Trader","Doctor","Lawyer/Advocate","CA/Finance","Engineer","Software/IT/Web Developer","Teacher/Professor","Government Service","Police/Defence","Student","Farmer/Agriculture","Hotel/Restaurant","Construction/Contractor","Real Estate","Transport","Retail Shop","Homemaker","Retired","Priest/Pandit","Other"];
+const STATES = ["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chhattisgarh","Goa","Gujarat","Haryana","Himachal Pradesh","Jharkhand","Karnataka","Kerala","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal",
+  "Andaman and Nicobar Islands","Chandigarh","Dadra and Nagar Haveli and Daman and Diu","Delhi","Jammu and Kashmir","Ladakh","Lakshadweep","Puducherry"];
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const form = $("#form");
+let step = 1, lang = "en", sending = false, lastFailed = false;
+
+function t(k) { const v = I18N[lang][k]; return v === undefined ? I18N.en[k] : v; }
+
+/* ---------- Language ---------- */
+function setLang(l) {
+  if (!I18N[l]) l = "en";
+  lang = l;
+  document.documentElement.lang = l === "mwr" ? "mwr" : l;
+  try { localStorage.setItem("samaj_lang", l); } catch (e) {}
+  $$(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  $$("[data-i18n]").forEach(el => { const v = t(el.dataset.i18n); if (typeof v === "string") el.textContent = v; });
+  $$("[data-ph]").forEach(el => el.placeholder = t(el.dataset.ph));
+  fillSelect($("#state"), STATES, t("state_pick"), s => s);
+  fillSelect($("#occupation_category"), OCCUPATIONS, t("occ_pick"), o => (I18N[lang].occ[o] || o));
+  renderStep();
+}
+function fillSelect(sel, values, placeholder, labelFn) {
+  const cur = sel.value;
+  sel.innerHTML = "";
+  sel.add(new Option(placeholder, ""));
+  values.forEach(v => sel.add(new Option(labelFn(v), v)));
+  sel.value = cur;
+}
+
+/* ---------- Steps ---------- */
+function renderStep() {
+  $$(".step").forEach(s => s.classList.toggle("active", +s.dataset.step === step));
+  $$(".progress i").forEach((i, idx) => i.classList.toggle("on", idx < step));
+  $("#stepLabel").textContent = t("step_of")(step) + " · " + t("steps")[step - 1];
+  $("#backBtn").hidden = step === 1;
+  $("#nextText").textContent = sending ? t("sending") : step < 3 ? t("next") : (lastFailed ? t("retry") : t("submit"));
+  if ($("#netError").classList.contains("show")) $("#netError").textContent = t($("#netError").dataset.key || "net_error");
+}
+
+/* ---------- Validation ---------- */
+const MOBILE_RE = /^[6-9]\d{9}$/;
+const PIN_RE = /^[1-9]\d{5}$/;
+const val = n => { const el = form.elements[n]; if (!el) return ""; if (el instanceof RadioNodeList) return el.value || ""; return el.type === "checkbox" ? el.checked : (el.value || "").trim(); };
+function setErr(name, bad) { const f = $(`[data-f="${name}"]`); if (f) f.classList.toggle("invalid", !!bad); return !bad; }
+function validateStep(n) {
+  let ok = true;
+  const req = name => { ok = setErr(name, !val(name)) && ok; };
+  if (n === 1) {
+    req("full_name"); req("father_name");
+    ok = setErr("mobile", !MOBILE_RE.test(val("mobile"))) && ok;
+    if (!val("whatsapp_same")) ok = setErr("whatsapp", !MOBILE_RE.test(val("whatsapp"))) && ok; else setErr("whatsapp", false);
+  }
+  if (n === 2) {
+    req("village"); req("gotra"); req("city"); req("state");
+    ok = setErr("pincode", !PIN_RE.test(val("pincode"))) && ok;
+  }
+  if (n === 3) {
+    req("occupation_category"); req("blood_group"); req("blood_donor_willing");
+    ok = setErr("consent_directory", !val("consent_directory")) && ok;
+  }
+  if (!ok) {
+    const first = $(".step.active .invalid");
+    if (first) { first.scrollIntoView({ behavior: "smooth", block: "center" }); const i = first.querySelector("input:not([type=radio]),select"); if (i) setTimeout(() => i.focus({ preventScroll: true }), 300); }
+  }
+  return ok;
+}
+// clear error as user fixes it
+form.addEventListener("input", e => { const f = e.target.closest("[data-f]"); if (f) f.classList.remove("invalid"); });
+form.addEventListener("change", e => { const f = e.target.closest("[data-f]"); if (f) f.classList.remove("invalid"); });
+
+// digits only for numeric fields
+["mobile", "whatsapp", "pincode"].forEach(id => {
+  $("#" + id).addEventListener("input", e => {
+    let d = e.target.value.replace(/\D/g, "");
+    if (id !== "pincode" && d.length > 10) d = d.replace(/^(91|0)/, "");   // strip pasted +91 / 0 prefix
+    e.target.value = d.slice(0, id === "pincode" ? 6 : 10);
+  });
+});
+$("#whatsapp_same").addEventListener("change", e => { $("#waField").hidden = e.target.checked; if (e.target.checked) setErr("whatsapp", false); });
+
+/* ---------- Pincode auto-fill (never blocks submission) ---------- */
+let pinReq = 0;
+$("#pincode").addEventListener("input", async e => {
+  const pin = e.target.value, st = $("#pinStatus");
+  st.className = "pinstatus"; st.textContent = "";
+  if (!PIN_RE.test(pin)) return;
+  const my = ++pinReq;
+  st.textContent = t("pin_looking");
+  try {
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 6000);
+    const r = await fetch("https://api.postalpincode.in/pincode/" + pin, { signal: ctrl.signal });
+    clearTimeout(to);
+    const j = await r.json();
+    if (my !== pinReq) return;
+    const po = j && j[0] && j[0].Status === "Success" && j[0].PostOffice && j[0].PostOffice[0];
+    if (!po) throw new Error("not found");
+    const city = po.District || po.Block || po.Name;
+    const state = matchState(po.State);
+    if (city && !$("#city").value.trim()) $("#city").value = city;
+    if (state) $("#state").value = state;
+    setErr("city", false); setErr("state", false);
+    st.className = "pinstatus ok"; st.textContent = t("pin_found")(city || "", state || po.State || "");
+  } catch (err) {
+    if (my !== pinReq) return;
+    st.className = "pinstatus"; st.textContent = t("pin_fail");
+  }
+});
+function matchState(s) {
+  if (!s) return "";
+  const n = x => x.toLowerCase().replace(/&/g, "and").replace(/[^a-z]/g, "");
+  const k = n(s);
+  if (k.includes("delhi")) return "Delhi";
+  if (k.includes("dadra") || k.includes("daman")) return "Dadra and Nagar Haveli and Daman and Diu";
+  if (k === "orissa") return "Odisha";
+  if (k === "pondicherry") return "Puducherry";
+  return STATES.find(x => n(x) === k) || "";
+}
+
+/* ---------- Submit ----------
+   Why this approach (Google Apps Script quirks):
+   - We POST with Content-Type "text/plain;charset=utf-8". That is a "simple" CORS request, so the
+     browser sends NO OPTIONS preflight (Apps Script cannot answer preflights). The body is still JSON;
+     Code.gs parses e.postData.contents.
+   - Apps Script replies 302 → script.googleusercontent.com, which sends "Access-Control-Allow-Origin: *",
+     so a normal fetch (redirect: "follow") can read our JSON {ok:true}. This is the primary path.
+   - Fallback: if that fetch throws (some old Android WebViews / privacy browsers block the cross-site
+     redirect), we resend once with mode:"no-cors". The response is opaque (unreadable) but the row
+     IS written; if the network were really down, no-cors would throw too. Duplicate rows are not a risk
+     because Code.gs de-dupes by mobile number (same mobile → same row updated).
+*/
+function collect() {
+  const d = {};
+  ["full_name","father_name","mother_name","gender","village","gotra","mobile","whatsapp_same","whatsapp",
+   "pincode","city","state","blood_group","blood_donor_willing","occupation_category","occupation_detail",
+   "consent_directory","consent_show_mobile"].forEach(k => d[k] = val(k));
+  d.whatsapp_same = d.whatsapp_same ? "Yes" : "No";
+  if (d.whatsapp_same === "Yes") d.whatsapp = d.mobile;
+  d.consent_directory = d.consent_directory ? "Yes" : "No";
+  d.consent_show_mobile = d.consent_show_mobile ? "Yes" : "No";
+  d.source = SOURCE;
+  d.lang = lang;
+  d.submitted_at = new Date().toISOString();
+  d.website = val("website"); // honeypot
+  return d;
+}
+async function postWithTimeout(opts, ms) {
+  const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), ms);
+  try { return await fetch(SHEET_ENDPOINT, Object.assign({ method: "POST", redirect: "follow", signal: ctrl.signal }, opts)); }
+  finally { clearTimeout(to); }
+}
+async function submit() {
+  if (sending) return;
+  if (!validateStep(3)) return;
+  const banner = $("#netError");
+  if (!/^https:\/\//.test(SHEET_ENDPOINT)) { showBanner("not_configured"); return; }
+  sending = true; lastFailed = false;
+  $("#nextBtn").disabled = true; $("#nextBtn").classList.add("busy"); renderStep();
+  banner.classList.remove("show");
+  const body = JSON.stringify(collect());
+  let ok = false, key = "net_error";
+  try {
+    const r = await postWithTimeout({ headers: { "Content-Type": "text/plain;charset=utf-8" }, body }, 25000);
+    const j = await r.json().catch(() => null);
+    if (j && j.ok) ok = true; else key = "server_error";
+  } catch (e) {
+    try {
+      await postWithTimeout({ mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body }, 25000);
+      ok = true; // opaque response: request reached Google
+    } catch (e2) { ok = false; key = "net_error"; }
+  }
+  sending = false;
+  $("#nextBtn").disabled = false; $("#nextBtn").classList.remove("busy");
+  if (ok) showSuccess(); else { lastFailed = true; showBanner(key); renderStep(); }
+}
+function showBanner(key) { const b = $("#netError"); b.dataset.key = key; b.textContent = t(key); b.classList.add("show"); b.scrollIntoView({ behavior: "smooth", block: "center" }); }
+
+/* ---------- Success / add family ---------- */
+function showSuccess() {
+  form.hidden = true; $("#actions").hidden = true; $("#progressBox").hidden = true;
+  $("#success").hidden = false; window.scrollTo(0, 0);
+}
+function resetForFamily(keep) {
+  const kept = {}; keep.forEach(k => kept[k] = val(k));
+  form.reset();
+  keep.forEach(k => { if (form.elements[k]) form.elements[k].value = kept[k]; });
+  $("#waField").hidden = true; $("#pinStatus").textContent = "";
+  $$(".invalid").forEach(x => x.classList.remove("invalid"));
+  $("#netError").classList.remove("show");
+  step = 1; lastFailed = false;
+  form.hidden = false; $("#actions").hidden = false; $("#progressBox").hidden = false; $("#success").hidden = true;
+  renderStep(); window.scrollTo(0, 0); $("#full_name").focus();
+}
+$("#addFamily").addEventListener("click", () => resetForFamily(["village","gotra","city","state","pincode"]));
+$("#doneBtn").addEventListener("click", () => resetForFamily([]));
+
+/* ---------- Navigation ---------- */
+$("#nextBtn").addEventListener("click", () => {
+  if (step < 3) { if (validateStep(step)) { step++; renderStep(); window.scrollTo(0, 0); } }
+  else submit();
+});
+$("#backBtn").addEventListener("click", () => { if (step > 1) { step--; renderStep(); window.scrollTo(0, 0); } });
+form.addEventListener("submit", e => e.preventDefault());
+// Enter key on a text field moves to next step instead of submitting the page
+form.addEventListener("keydown", e => { if (e.key === "Enter" && e.target.tagName === "INPUT" && e.target.type !== "checkbox") { e.preventDefault(); $("#nextBtn").click(); } });
+$$(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+/* ---------- Init ---------- */
+$("#brandName").textContent = COMMUNITY_NAME;
+let saved = null; try { saved = localStorage.getItem("samaj_lang"); } catch (e) {}
+const qsLang = new URLSearchParams(location.search).get("lang");
+setLang(qsLang || saved || "en");
+</script>
+</body>
+</html>
