@@ -70,7 +70,7 @@
   label.lbl, .lbl { display: block; font-weight: 600; font-size: 15px; margin-bottom: 7px; }
   .opt { font-weight: 400; color: var(--ink-2); font-size: 13px; }
   .req { color: var(--accent-dark); }
-  input[type=text], input[type=tel], select {
+  input[type=text], input[type=tel], input[type=date], select {
     width: 100%; font: inherit; font-size: 17px; color: var(--ink);
     background: #fff; border: 1px solid var(--line-strong); border-radius: var(--radius);
     padding: 14px 14px; min-height: 52px; outline: none; appearance: none; -webkit-appearance: none;
@@ -214,6 +214,19 @@
           <label><input type="radio" name="gender" value="Prefer not to say"><span data-i18n="g_na"></span></label>
         </div>
       </div>
+      <div class="field" data-f="date_of_birth">
+        <label class="lbl" for="date_of_birth"><span data-i18n="date_of_birth"></span> <span class="opt" data-i18n="optional"></span></label>
+        <input type="date" id="date_of_birth" name="date_of_birth" min="1920-01-01" max="2026-12-31">
+      </div>
+      <div class="field" data-f="marital_status">
+        <span class="lbl"><span data-i18n="marital_status"></span> <span class="opt" data-i18n="optional"></span></span>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="marital_status" value="Unmarried"><span data-i18n="m_unmarried"></span></label>
+          <label><input type="radio" name="marital_status" value="Married"><span data-i18n="m_married"></span></label>
+          <label><input type="radio" name="marital_status" value="Widowed"><span data-i18n="m_widowed"></span></label>
+          <label><input type="radio" name="marital_status" value="Divorced/Separated"><span data-i18n="m_divorced"></span></label>
+        </div>
+      </div>
       <div class="field" data-f="mobile">
         <label class="lbl" for="mobile"><span data-i18n="mobile"></span> <span class="req">*</span></label>
         <div class="prefix"><span>+91</span>
@@ -303,6 +316,14 @@
         </div>
         <div class="err" data-i18n="e_select"></div>
       </div>
+      <div class="field" data-f="volunteer_willing">
+        <span class="lbl"><span data-i18n="volunteer_willing"></span> <span class="req">*</span></span>
+        <div class="chips" role="radiogroup">
+          <label><input type="radio" name="volunteer_willing" value="Yes"><span data-i18n="yes"></span></label>
+          <label><input type="radio" name="volunteer_willing" value="No"><span data-i18n="no"></span></label>
+        </div>
+        <div class="err" data-i18n="e_select"></div>
+      </div>
 
       <div class="field" data-f="consent_directory">
         <label class="check strong"><input type="checkbox" id="consent_directory" name="consent_directory"><span class="t" data-i18n="consent_directory"></span></label>
@@ -379,6 +400,9 @@ const I18N = {
     consent_directory: "I agree that my details are stored and shown only to verified members of the Samaj app. I can ask for my details to be changed or removed anytime.",
     consent_show_mobile: "Members can see my mobile number.",
     privacy: "🔒 We never sell or share your details outside the Samaj. Used only for the community directory.",
+    date_of_birth: "Date of birth", marital_status: "Marital status",
+    m_unmarried: "Unmarried", m_married: "Married", m_widowed: "Widowed", m_divorced: "Divorced / Separated",
+    volunteer_willing: "Are you willing to volunteer at upcoming samaj events in your area?",
     optional: "(optional)",
     optional_short: "optional",
     e_required: "Please fill this in.",
@@ -436,6 +460,9 @@ const I18N = {
     consent_directory: "मैं सहमत हूँ कि मेरी जानकारी सुरक्षित रखी जाए और केवल समाज ऐप के सत्यापित (verified) सदस्यों को दिखाई जाए। मैं कभी भी अपनी जानकारी बदलवा या हटवा सकता/सकती हूँ।",
     consent_show_mobile: "सदस्य मेरा मोबाइल नंबर देख सकते हैं।",
     privacy: "🔒 आपकी जानकारी समाज के बाहर कभी बेची या साझा नहीं की जाएगी। केवल समाज डायरेक्टरी के लिए।",
+    date_of_birth: "जन्म तिथि", marital_status: "वैवाहिक स्थिति",
+    m_unmarried: "अविवाहित", m_married: "विवाहित", m_widowed: "विधवा / विधुर", m_divorced: "तलाकशुदा / अलग",
+    volunteer_willing: "क्या आप अपने इलाके में होने वाले समाज के आगामी कार्यक्रमों में स्वयंसेवक (वॉलंटियर) बनना चाहेंगे?",
     optional: "(वैकल्पिक)",
     optional_short: "वैकल्पिक",
     e_required: "कृपया यह भरें।",
@@ -494,6 +521,9 @@ const I18N = {
     consent_directory: "म्हैं राजी हूँ कै म्हारी जाणकारी राखी जावै अर फगत समाज ऐप रा पक्का (verified) सदस्यां नै दिखाई जावै। म्हैं कदैई भी आपरी जाणकारी बदळवा या हटवा सकूँ।",
     consent_show_mobile: "सदस्य म्हारो मोबाइल नंबर देख सकै।",
     privacy: "🔒 आपरी जाणकारी समाज रै बारै कदैई नीं बेचीजसी, नीं दीजसी। फगत समाज डायरेक्टरी सारू।",
+    date_of_birth: "जनम तारीख", marital_status: "ब्याव री स्थिति",
+    m_unmarried: "कुंवारो / कुंवारी", m_married: "परणीज्योड़ो / परणीजोड़ी", m_widowed: "विधवा / विधुर", m_divorced: "तलाक / न्यारा",
+    volunteer_willing: "थांरै इलाके में समाज रा आवण वाळा कार्यक्रमां में सेवा (वॉलंटियर) देवणी चावो कांई?",
     optional: "(जरूरी कोनी)",
     optional_short: "जरूरी कोनी",
     e_required: "किरपा कर इणनै भरो।",
@@ -585,7 +615,7 @@ function validateStep(n) {
     ok = setErr("pincode", !PIN_RE.test(val("pincode"))) && ok;
   }
   if (n === 3) {
-    req("occupation_category"); req("blood_group"); req("blood_donor_willing");
+    req("occupation_category"); req("blood_group"); req("blood_donor_willing"); req("volunteer_willing");
     ok = setErr("consent_directory", !val("consent_directory")) && ok;
   }
   if (!ok) {
@@ -662,7 +692,7 @@ function collect() {
   const d = {};
   ["full_name","father_name","mother_name","gender","village","gotra","mobile","whatsapp_same","whatsapp",
    "pincode","city","state","blood_group","blood_donor_willing","occupation_category","occupation_detail",
-   "consent_directory","consent_show_mobile"].forEach(k => d[k] = val(k));
+   "consent_directory","consent_show_mobile","date_of_birth","marital_status","volunteer_willing"].forEach(k => d[k] = val(k));
   d.whatsapp_same = d.whatsapp_same ? "Yes" : "No";
   if (d.whatsapp_same === "Yes") d.whatsapp = d.mobile;
   d.consent_directory = d.consent_directory ? "Yes" : "No";
